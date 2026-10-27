@@ -1,123 +1,48 @@
-# Zelar.app — Documentation
+# Zelar.app — Documentação
 
-> "Conectando pessoas, dados e cidades."
+Plataforma para cidadãos registrarem problemas urbanos e administradores acompanharem seu atendimento. Este repositório reúne os contratos, regras e instruções de manutenção do MVP.
 
-Repositório central de documentação da plataforma **Zelar.app**, reunindo especificações, decisões técnicas, arquitetura, regras de negócio e demais informações necessárias para o desenvolvimento e manutenção do projeto.
+## Versão documentada
 
-## O Projeto
+Conferência em **27/10/2026**, com referências fixadas para reprodução:
 
-O Zelar.app é uma plataforma que conecta cidadãos e responsáveis pela infraestrutura urbana, permitindo o registro, acompanhamento e gerenciamento de ocorrências como:
+| Repositório | Base conferida | Situação |
+| --- | --- | --- |
+| [Backend](https://github.com/Zelar-App/zelar.app-backend) | [`e0d47f2`](https://github.com/Zelar-App/zelar.app-backend/commit/e0d47f21e0439437c031d7610de12dd4dbbb1cd2) | `develop`, incluindo DB-09 e BE-13, PRs #85 e #86 integrados |
+| [Frontend](https://github.com/Zelar-App/zelar.app-frontend) | [`428ebfb`](https://github.com/Zelar-App/zelar.app-frontend/commit/428ebfbc35b7960a7659adfbeeec2a34ad231e7e) | `develop`, PR #47; fotos ainda bloqueadas no adaptador HTTP |
+| Documentação | Base `660043b`, acrescida desta consolidação | Depende de push e revisão |
 
-* Buracos em vias;
-* Problemas de iluminação;
-* Acúmulo de lixo;
-* Alagamentos;
-* Problemas em calçadas;
-* Sinalização danificada;
-* Ocorrências ambientais.
+**Backend implementado não significa integração completa das fotografias.** A validação do bucket real e a adaptação do frontend continuam pendentes nas evidências disponíveis. O mock não comprova persistência na API.
 
-O projeto é dividido em três repositórios principais:
+## Índice
 
-* **zelar.app-backend** — API, regras de negócio, autenticação e acesso aos dados;
-* **zelar.app-frontend** — Interface da aplicação e experiência do usuário;
-* **zelar.app-docs** — Documentação e especificações do projeto.
+| Documento | Conteúdo |
+| --- | --- |
+| [Escopo e requisitos](requirements/ESCOPO-MVP.md) | Problema, público, ODS e limites |
+| [Rastreabilidade](requirements/RASTREABILIDADE.md) | Requisitos, PRs, testes e pendências |
+| [Contrato HTTP](api/README.md) | Endpoints, DTOs, autorização e exemplos |
+| [OpenAPI 3.0.3](api/openapi.json) | Contrato importável |
+| [Regras de negócio](business-rules/REGRAS-MVP.md) | Visibilidade, status, prioridade e fotos |
+| [Arquitetura e fluxos](architecture/ARQUITETURA.md) | Componentes, camadas e sequências |
+| [Modelo de dados](database/DER.md) | Dicionário físico e migrations V1–V5 |
+| [Classes de domínio](database/Diagrama_de_Classe.md) | Modelo conceitual atual |
+| [Decisões técnicas](decisions/DECISOES-MVP.md) | Escolhas e assuntos em aberto |
+| [Execução e configuração](operations/EXECUCAO.md) | Banco, JWT, frontend e Storage |
+| [Qualidade de software](quality/QUALIDADE.md) | TDD, revisão, CI e evidências |
+| [Roteiro de integração](quality/ROTEIRO-INTEGRACAO.md) | Verificações e registro de resultados |
+| [Fluxos da interface](ux-ui/FLUXOS-MVP.md) | Telas, permissões e erros |
+| [Entrega e demonstração](delivery/ENTREGA.md) | Versões, roteiro e pendências |
 
-## Objetivo da Documentação
+## Como manter
 
-Este repositório tem como objetivo centralizar informações que precisam ser compartilhadas entre as diferentes partes do projeto.
+Código e migrations determinam o comportamento implementado. Ao alterar um endpoint, atualizar OpenAPI, exemplos, regras e rastreabilidade no mesmo ciclo. Evidências históricas devem indicar commit, ambiente e uso de simulação.
 
-A documentação busca facilitar:
+Fluxo: `feature/*`, `fix/*` ou `docs/*` → PR para `develop` → revisão → integração. `stage` representa homologação nos repositórios que a utilizam; `main`, versão estável. Pushes desta consolidação são manuais pelo responsável. Não publicar segredos ou dados reais de demonstração.
 
-* Entendimento do projeto;
-* Comunicação entre os integrantes da equipe;
-* Definição e registro de requisitos;
-* Padronização do desenvolvimento;
-* Manutenção do sistema;
-* Onboarding de novos integrantes;
-* Registro das decisões técnicas.
+As issues [DOC-01 #3](https://github.com/Zelar-App/zelar.app-docs/issues/3), [INT-01 #4](https://github.com/Zelar-App/zelar.app-docs/issues/4) e [REL-01 #5](https://github.com/Zelar-App/zelar.app-docs/issues/5) acompanham consolidação, integração e entrega. Criar os arquivos não substitui revisão por outro integrante nem execução dos roteiros.
 
-## Estrutura da Documentação
+## PDFs históricos
 
-A organização dos documentos seguirá uma estrutura que poderá evoluir conforme o projeto crescer.
+Os PDFs de requisitos, classes, sequência, casos de uso e entidades preservam versões anteriores. **Não são o contrato vigente.** Alguns usam categorias extensas, visibilidade indefinida, múltiplos anexos ou envio de foto junto ao cadastro. Os documentos editáveis do índice substituem essas informações para a versão acima; os PDFs são mantidos para rastreabilidade. Novas exportações devem usar as fontes atuais e identificar a versão.
 
-```text
-docs/
-│
-├── requirements/     → Requisitos funcionais e não funcionais
-├── architecture/     → Arquitetura e decisões estruturais
-├── api/              → Documentação da API
-├── database/         → Modelagem e documentação do banco de dados
-├── business-rules/   → Regras de negócio
-├── ux-ui/            → Fluxos, telas e especificações de interface
-└── decisions/        → Decisões técnicas e arquiteturais
-```
-
-## Documentação Técnica
-
-A documentação técnica deverá acompanhar a evolução do sistema e poderá incluir:
-
-* Diagramas de arquitetura;
-* Diagramas de banco de dados;
-* Diagramas de fluxo;
-* Contratos e endpoints da API;
-* Modelagem de dados;
-* Regras de negócio;
-* Fluxos de usuário;
-* Decisões arquiteturais;
-* Padrões e convenções adotados no projeto.
-
-## Qualidade da Documentação
-
-A documentação busca seguir algumas práticas para manter as informações organizadas e confiáveis:
-
-* Documentação versionada com Git;
-* Padronização dos documentos;
-* Organização por domínio;
-* Registro das decisões importantes;
-* Atualização conforme o sistema evolui;
-* Evitar duplicação de informações entre documentos.
-
-## Relação com os Outros Repositórios
-
-```text
-zelar.app-backend
-        │
-        │ API / regras de negócio
-        ▼
-zelar.app-frontend
-        │
-        │ Interface / experiência do usuário
-        │
-        └──────────────┐
-                       ▼
-                zelar.app-docs
-                       │
-                       └── Documentação compartilhada
-```
-
-O `zelar.app-docs` não contém a implementação do backend ou frontend. Ele funciona como **fonte central de documentação e referência para o desenvolvimento do projeto**.
-
-## Estratégia de Branches
-
-```text
-main      → documentação estável
-develop   → integração de alterações
-
-feature/* → novas documentações ou alterações estruturais
-fix/*     → correções de documentação
-```
-
-## Contribuição
-
-Alterações na documentação devem seguir o mesmo processo de organização utilizado no desenvolvimento do projeto:
-
-* Controle de versão com Git;
-* Desenvolvimento em branches;
-* Pull Requests;
-* Revisão das alterações;
-* Padronização dos documentos;
-* Manutenção contínua da documentação.
-
-## Status
-
-Em desenvolvimento.
+Licença: [LICENSE](LICENSE).
